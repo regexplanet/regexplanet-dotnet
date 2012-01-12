@@ -131,24 +131,6 @@ namespace RegexPlanet_DotNet
 						sb.Append(Server.HtmlEncode(BooleanToString(m.Success)));
 						sb.AppendLine("</td>");
 
-						//m.reset();
-
-						//sb.Append("\t\t\t<td>");
-						//try
-						//{
-						//    sb.Append(Server.HtmlEncode(m.replaceFirst(replacement)));
-						//}
-						//catch (Exception ex)
-						//{
-						//    sb.Append("<i>(ERROR: ");
-						//    sb.Append(Server.HtmlEncode(ex.Message));
-						//    sb.Append(")</i>");
-						//}
-
-						//sb.AppendLine("</td>");
-
-						//m.reset();
-
 						sb.Append("\t\t\t<td>");
 						try
 						{
@@ -169,21 +151,11 @@ namespace RegexPlanet_DotNet
 						}
 						sb.AppendLine("</td>");
 
-						//m.reset();
-
-						//sb.Append("\t\t\t<td>");
-						//sb.Append(Server.HtmlEncode(BooleanToString(m.lookingAt())));
-						//sb.AppendLine("</td>");
-
-						//m.reset();
-
 						int count = 0;
-						//int findCount = 0;
 						bool ifFirst = true;
 						while (m.Success)
 						{
 							count = 0;
-							//findCount++;
 							if (ifFirst == true)
 							{
 								ifFirst = false;
@@ -194,9 +166,6 @@ namespace RegexPlanet_DotNet
 								sb.AppendLine("\t\t<tr>");
 								sb.AppendLine("\t\t\t<td colspan=\"4\" style=\"text-align:right\">NextMatch()</td>");
 							}
-							//sb.Append("\t\t\t<td>");
-							//sb.Append(Server.HtmlEncode(BooleanToString(true)));
-							//sb.AppendLine("</td>");
 
 							for (int group = 0; group < m.Groups.Count; group++)
 							{
@@ -212,12 +181,6 @@ namespace RegexPlanet_DotNet
 							}
 							m = m.NextMatch();
 						}
-						//if (findCount == 0)
-						//{
-						//    sb.Append("\t\t\t<td>");
-						//    sb.Append(Server.HtmlEncode(BooleanToString(false)));
-						//    sb.AppendLine("</td>");
-						//}
 						for (; count < groupCount; count++)
 						{
 							// for group 0
@@ -246,7 +209,6 @@ namespace RegexPlanet_DotNet
 			{
 				Response.Write(result);
 			}
-
 		}
 
 		private RegexOptions GetOptions()
@@ -286,8 +248,6 @@ namespace RegexPlanet_DotNet
 					case "javascript":
 						options |=RegexOptions.ECMAScript;
 						break;
-					default:
-						throw new NotSupportedException(optionString);
 				}
 			}
 			return options;
