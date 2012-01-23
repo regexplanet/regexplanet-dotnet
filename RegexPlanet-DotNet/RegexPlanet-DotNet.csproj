@@ -63,6 +63,8 @@
     <Compile Include="TestResult.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="robots.txt" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
