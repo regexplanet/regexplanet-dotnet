@@ -1,17 +1,5 @@
 #
-<<<<<<< HEAD
-# almost empty: everything at RegexPlanet is indexable!
-#
-#Sitemap: http://www.regexplanet.com/sitemap.xml
-
-User-agent: *
-Disallow: /images
-Disallow: /js
-Disallow: /style
-Disallow: /tmp
-=======
 # just a backend for the main RegexPlanet.com site: go there to index stuff!
 #
 User-agent: *
 Disallow: /
->>>>>>> ba66e9bedcded99ac696f1ab5102f0b26ba2a55e
