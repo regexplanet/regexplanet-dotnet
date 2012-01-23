@@ -1,0 +1,10 @@
+#
+# almost empty: everything at RegexPlanet is indexable!
+#
+#Sitemap: http://www.regexplanet.com/sitemap.xml
+
+User-agent: *
+Disallow: /images
+Disallow: /js
+Disallow: /style
+Disallow: /tmp
