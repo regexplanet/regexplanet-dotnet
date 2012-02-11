@@ -27,7 +27,7 @@ namespace RegexPlanet_DotNet
 				// TODO handle invalid combinations of options
 
 				StringBuilder sb = new StringBuilder();
-				sb.AppendLine("<table class=\"bordered-table zebra-striped\">");
+				sb.AppendLine("<table class=\"table table-bordered table-striped bordered-table zebra-striped\" style=\"width:auto;\">");
 				sb.AppendLine("\t<tbody>");
 
 				sb.AppendLine("\t\t<tr>");
@@ -91,10 +91,10 @@ namespace RegexPlanet_DotNet
 
 				if (regularExpression != null)
 				{
-					sb.AppendLine("<table class=\"bordered-table zebra-striped\">");
+					sb.AppendLine("<table class=\"table table-bordered table-striped bordered-table zebra-striped\">");
 					sb.AppendLine("\t<thead>");
 					sb.AppendLine("\t\t<tr>");
-					sb.AppendLine("\t\t\t<th>Test</th>");
+					sb.AppendLine("\t\t\t<th style=\"text-align:center;\">Test</th>");
 					sb.AppendLine("\t\t\t<th>Target String</th>");
 					sb.AppendLine("\t\t\t<th>Match()</th>");
 					sb.AppendLine("\t\t\t<th>Result()</th>");
