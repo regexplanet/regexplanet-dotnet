@@ -11,10 +11,10 @@ namespace RegexPlanet_DotNet
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			TestResult testResult = new TestResult();
-			string regEx = Request.QueryString["regex"];
-			string callback = Request.QueryString["callback"];
-			string replacement = Request.QueryString["replacement"];
-			string[] inputs = Request.QueryString.GetValues("input");
+			string regEx = Request.Params["regex"];
+			string callback = Request.Params["callback"];
+			string replacement = Request.Params["replacement"];
+			string[] inputs = Request.Params.GetValues("input");
 
 			if (String.IsNullOrEmpty(regEx))
 			{
@@ -217,12 +217,12 @@ namespace RegexPlanet_DotNet
 		private RegexOptions GetOptions()
 		{
 			RegexOptions options = RegexOptions.None;
-			if (Request.QueryString["option"] == null)
+			if (Request.Params["option"] == null)
 			{
 				return options;
 			}
 
-			string[] optionsArray = Request.QueryString.GetValues("option");
+			string[] optionsArray = Request.Params.GetValues("option");
 			foreach (string optionString in optionsArray)
 			{
 				switch (optionString)
