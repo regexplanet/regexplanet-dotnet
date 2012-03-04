@@ -207,6 +207,9 @@ namespace RegexPlanet_DotNet
 			}
 			else
 			{
+				Response.AppendHeader("Access-Control-Allow-Origin", "*");
+				Response.AppendHeader("Access-Control-Allow-Methods", "POST, GET");
+				Response.AppendHeader("Access-Control-Max-Age", "604800");
 				Response.Write(result);
 			}
 		}
