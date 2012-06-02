@@ -61,6 +61,11 @@
       <DependentUpon>Test.aspx</DependentUpon>
     </Compile>
     <Compile Include="TestResult.cs" />
+    <Compile Include="Status.aspx.cs">
+      <DependentUpon>Status.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StatusResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -69,6 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Test.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Status.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.Debug.config">
@@ -101,7 +109,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
