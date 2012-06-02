@@ -16,5 +16,11 @@ namespace RegexPlanet_DotNet
 
 		[DataMember(Name = "System.Environment.Version", EmitDefaultValue = false)]
 		public string SystemEnvironmentVersion { get; set; }
+
+		[DataMember(Name = "System.Environment.OSVersion", EmitDefaultValue = false)]
+		public string SystemEnvironmentOSVersion { get; set; }
+
+		[DataMember(Name = "System.Environment.Is64BitOperatingSystem", EmitDefaultValue = false)]
+		public bool SystemEnvironmentIs64BitOperatingSystem { get; set; }
 	}
 }
