@@ -13,6 +13,7 @@ namespace RegexPlanet_DotNet
 			StatusResult statusResult = new StatusResult();
 			statusResult.Success = true;
 			statusResult.Test = "It worked!";
+			statusResult.SystemEnvironmentVersion = System.Environment.Version.ToString();
 
 			String result = Serialize<StatusResult>(statusResult);
 			string callback = Request.Params["callback"];

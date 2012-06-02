@@ -13,5 +13,8 @@ namespace RegexPlanet_DotNet
 
 		[DataMember(Name = "message", EmitDefaultValue = false)]
 		public string Message { get; set; }
+
+		[DataMember(Name = "System.Environment.Version", EmitDefaultValue = false)]
+		public string SystemEnvironmentVersion { get; set; }
 	}
 }
