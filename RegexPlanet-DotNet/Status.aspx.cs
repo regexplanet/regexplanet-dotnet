@@ -11,10 +11,11 @@ namespace RegexPlanet_DotNet
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			StatusResult statusResult = new StatusResult();
-			testResult.Success = true;
-			testResult.Test = "It worked!";
+			statusResult.Success = true;
+			statusResult.Test = "It worked!";
 
 			String result = Serialize<StatusResult>(statusResult);
+			string callback = Request.Params["callback"];
 			if (!String.IsNullOrEmpty(callback))
 			{
 				Response.Write(callback);
