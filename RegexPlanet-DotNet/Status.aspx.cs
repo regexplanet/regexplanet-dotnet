@@ -15,7 +15,7 @@ namespace RegexPlanet_DotNet
 			statusResult.Test = "It worked!";
 			statusResult.SystemEnvironmentVersion = System.Environment.Version.ToString();
 			statusResult.SystemEnvironmentOSVersion = System.Environment.OSVersion.ToString();
-			statusResult.SystemEnvironmentIs64BitOperatingSystem = System.Environment.Is64BitOperatingSystem();
+			statusResult.SystemEnvironmentIs64BitOperatingSystem = System.Environment.Is64BitOperatingSystem;
 
 			String result = Serialize<StatusResult>(statusResult);
 			string callback = Request.Params["callback"];
