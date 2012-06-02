@@ -12,10 +12,19 @@ namespace RegexPlanet_DotNet
 		{
 			StatusResult statusResult = new StatusResult();
 			statusResult.Success = true;
-			statusResult.Test = "It worked!";
-			statusResult.SystemEnvironmentVersion = System.Environment.Version.ToString();
-			statusResult.SystemEnvironmentOSVersion = System.Environment.OSVersion.ToString();
+			statusResult.SystemEnvironmentCommandLine = System.Environment.CommandLine;
+			statusResult.SystemEnvironmentCurrentDirectory = System.Environment.CurrentDirectory;
 			statusResult.SystemEnvironmentIs64BitOperatingSystem = System.Environment.Is64BitOperatingSystem;
+			statusResult.SystemEnvironmentIs64BitProcess = System.Environment.Is64BitProcess;
+			statusResult.SystemEnvironmentMachineName = System.Environment.MachineName;
+			statusResult.SystemEnvironmentOSVersion = System.Environment.OSVersion.ToString();
+			statusResult.SystemEnvironmentProcessorCount = System.Environment.ProcessorCount;
+			statusResult.SystemEnvironmentSystemDirectory = System.Environment.SystemDirectory;
+			statusResult.SystemEnvironmentSystemPageSize = System.Environment.SystemPageSize;
+			statusResult.SystemEnvironmentTickCount = System.Environment.TickCount;
+			statusResult.SystemEnvironmentUserName = System.Environment.UserName;
+			statusResult.SystemEnvironmentVersion = System.Environment.Version.ToString();
+			statusResult.SystemEnvironmentWorkingSet = System.Environment.WorkingSet;
 
 			String result = Serialize<StatusResult>(statusResult);
 			string callback = Request.Params["callback"];
