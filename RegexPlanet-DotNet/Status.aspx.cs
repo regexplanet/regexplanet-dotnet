@@ -12,6 +12,7 @@ namespace RegexPlanet_DotNet
 		{
 			StatusResult statusResult = new StatusResult();
 			statusResult.Success = true;
+			statusResult.Version = System.Environment.Version.ToString();
 			statusResult.SystemEnvironmentCommandLine = System.Environment.CommandLine;
 			statusResult.SystemEnvironmentCurrentDirectory = System.Environment.CurrentDirectory;
 			statusResult.SystemEnvironmentIs64BitOperatingSystem = System.Environment.Is64BitOperatingSystem;

@@ -8,6 +8,9 @@ namespace RegexPlanet_DotNet
 		[DataMember(Name="success")]
 		public bool Success { get; set; }
 
+		[DataMember(Name="version")]
+		public string Version { get; set; }
+
 		[DataMember(Name = "System.Environment.CommandLine", EmitDefaultValue = false)]
 		public string SystemEnvironmentCommandLine { get; set; }
 
