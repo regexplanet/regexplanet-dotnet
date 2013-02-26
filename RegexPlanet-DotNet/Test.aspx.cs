@@ -73,12 +73,12 @@ namespace RegexPlanet_DotNet
 				{
 					regularExpression = new Regex(regEx, options);
 				}
-				catch (Exception e)
+				catch (Exception en)
 				{
 					sb.AppendLine("\t\t<tr>");
 					sb.AppendLine("\t\t\t<td>Error</td>");
 					sb.Append("\t\t\t<td>");
-					sb.Append(Server.HtmlEncode(e.Message));
+					sb.Append(Server.HtmlEncode(en.Message));
 					sb.Append("</td>");
 					sb.AppendLine("\t\t</tr>");
 				}
