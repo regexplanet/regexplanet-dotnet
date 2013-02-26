@@ -68,7 +68,21 @@ namespace RegexPlanet_DotNet
 				sb.Append("</td>");
 				sb.AppendLine("\t\t</tr>");
 
-				Regex regularExpression = new Regex(regEx, options);
+				Regex regularExpression = null;
+				try
+				{
+					regularExpression = new Regex(regEx, options);
+				}
+				catch (Exception e)
+				{
+					sb.AppendLine("\t\t<tr>");
+					sb.AppendLine("\t\t\t<td>Error</td>");
+					sb.Append("\t\t\t<td>");
+					sb.Append(Server.HtmlEncode(e.Message));
+					sb.Append("</td>");
+					sb.AppendLine("\t\t</tr>");
+				}
+
 				int groupCount = 0;
 				if (regularExpression != null)
 				{
