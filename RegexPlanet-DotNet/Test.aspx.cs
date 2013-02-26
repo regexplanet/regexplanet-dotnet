@@ -75,6 +75,7 @@ namespace RegexPlanet_DotNet
 				}
 				catch (Exception en)
 				{
+					testResult.Message = en.Message;
 					sb.AppendLine("\t\t<tr>");
 					sb.AppendLine("\t\t\t<td>Error</td>");
 					sb.Append("\t\t\t<td>");
@@ -218,9 +219,9 @@ namespace RegexPlanet_DotNet
 					sb.AppendLine("\t</tbody>");
 					sb.AppendLine("</table>");
 
-					testResult.Success = true;
-					testResult.Html = sb.ToString();
 				}
+				testResult.Success = regularExpression == null ? false : true;
+				testResult.Html = sb.ToString();
 			}
 
 			String result = Serialize<TestResult>(testResult);
