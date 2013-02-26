@@ -16,6 +16,8 @@ namespace RegexPlanet_DotNet
 			string replacement = Request.Params["replacement"];
 			string[] inputs = Request.Params.GetValues("input");
 
+			TimeSpan timeout = TimeSpan.FromSeconds(30);
+
 			if (String.IsNullOrEmpty(regEx))
 			{
 				testResult.Success = false;
@@ -125,7 +127,7 @@ namespace RegexPlanet_DotNet
 						sb.Append(Server.HtmlEncode(test));
 						sb.AppendLine("</td>");
 
-						Match m = regularExpression.Match(test);
+						Match m = Regex.Match(test, regEx, options, timeout);
 
 						sb.Append("\t\t\t<td>");
 						sb.Append(Server.HtmlEncode(BooleanToString(m.Success)));
