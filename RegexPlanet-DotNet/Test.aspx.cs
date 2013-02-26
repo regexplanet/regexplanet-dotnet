@@ -127,7 +127,16 @@ namespace RegexPlanet_DotNet
 						sb.Append(Server.HtmlEncode(test));
 						sb.AppendLine("</td>");
 
-						Match m = Regex.Match(test, regEx, options, timeout);
+						Match m = null;
+						try
+						{
+							m = Regex.Match(test, regEx, options, timeout);
+						}
+						catch (RegexMatchTimeoutException rmte)
+						{
+							sb.AppendLine("\t\t\t<td colspan=\"3\">ERROR: RegexMatchTimeoutException</td>");
+							sb.AppendLine("\t\t</tr>");
+						}
 
 						sb.Append("\t\t\t<td>");
 						sb.Append(Server.HtmlEncode(BooleanToString(m.Success)));
