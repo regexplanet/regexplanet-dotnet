@@ -16,7 +16,7 @@ namespace RegexPlanet_DotNet
 			string replacement = Request.Params["replacement"];
 			string[] inputs = Request.Params.GetValues("input");
 
-			TimeSpan timeout = TimeSpan.FromSeconds(30);
+			TimeSpan timeout = TimeSpan.FromSeconds(10);
 
 			if (String.IsNullOrEmpty(regEx))
 			{
