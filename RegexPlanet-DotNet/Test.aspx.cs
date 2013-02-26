@@ -136,6 +136,7 @@ namespace RegexPlanet_DotNet
 						{
 							sb.AppendLine("\t\t\t<td colspan=\"3\">ERROR: RegexMatchTimeoutException</td>");
 							sb.AppendLine("\t\t</tr>");
+							continue;
 						}
 
 						sb.Append("\t\t\t<td>");
