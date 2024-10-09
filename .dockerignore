@@ -1,0 +1,11 @@
+bin/
+Dockerfile
+.dockerignore
+.git
+.github
+.gitignore
+*.md
+obj/
+*.sh
+tmp*
+*tmp

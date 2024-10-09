@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegexPlanet-DotNet", "RegexPlanet-DotNet\RegexPlanet-DotNet.csproj", "{FDFF3E98-15B8-4FAC-988C-5A61C86666CE}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "regexplanet-dotnet", "regexplanet-dotnet.csproj", "{686D22DC-C3D7-4D47-8BDE-A609F580D0D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FDFF3E98-15B8-4FAC-988C-5A61C86666CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDFF3E98-15B8-4FAC-988C-5A61C86666CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDFF3E98-15B8-4FAC-988C-5A61C86666CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDFF3E98-15B8-4FAC-988C-5A61C86666CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{686D22DC-C3D7-4D47-8BDE-A609F580D0D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{686D22DC-C3D7-4D47-8BDE-A609F580D0D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{686D22DC-C3D7-4D47-8BDE-A609F580D0D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{686D22DC-C3D7-4D47-8BDE-A609F580D0D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA9609D1-C9D1-4278-88C3-775AFA871B42}
 	EndGlobalSection
 EndGlobal
