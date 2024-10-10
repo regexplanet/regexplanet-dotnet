@@ -13,11 +13,16 @@ RUN dotnet publish -c Release
 
 RUN find .
 
-#CMD ["/source/bin/Release/net8.0/publish/regexplanet-dotnet.dll"]
 #
 # final image
 #
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-noble-chiseled-extra
+
+ARG COMMIT="(not set)"
+ARG LASTMOD="(not set)"
+ENV COMMIT=$COMMIT
+ENV LASTMOD=$LASTMOD
+
 WORKDIR /app
 COPY --from=builder /source/bin/Release/net8.0/publish /app
 COPY ./wwwroot /app/wwwroot

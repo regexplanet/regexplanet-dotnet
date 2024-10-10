@@ -1,6 +1,27 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.HttpLogging;
 
+static async Task<bool> handleJsonp(HttpContext theContext, object data)
+{
+    string jsonStr = JsonSerializer.Serialize(data);
+
+    var response = theContext.Response;
+    var callback = theContext.Request.Query["callback"];
+    theContext.Response.Clear();
+    if (string.IsNullOrEmpty(callback))
+    {
+        response.ContentType = "application/json";
+        response.Headers.Append("Access-Control-Allow-Origin", "*");
+        response.Headers.Append("Access-Control-Allow-Methods", "GET");
+        response.Headers.Append("Access-Control-Max-Age", "604800");
+        await response.WriteAsync(jsonStr);
+    } else {
+        response.ContentType = "text/javascript; charset=utf-8";
+        await response.WriteAsync($"{callback}({jsonStr});");
+    }
+    return true;
+}
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpLogging(logging =>
 {
@@ -15,7 +36,7 @@ app.UseHttpLogging();
 app.UseStaticFiles();
 
 app.MapGet("/", () => "Running!");
-app.MapGet("/status.json", IResult (HttpContext theContext) =>
+app.MapGet("/status.json", static async (HttpContext theContext) =>
 {
     var statusResult = new StatusResult(true, 
         $".NET {Environment.Version}", 
@@ -25,12 +46,7 @@ app.MapGet("/status.json", IResult (HttpContext theContext) =>
         Environment.GetEnvironmentVariable("COMMIT") ?? "(local)"
     );
 
-    var callback = theContext.Request.Query["callback"];
-    if (string.IsNullOrEmpty(callback)) {
-        return Results.Json(statusResult);
-    }
-    string json = JsonSerializer.Serialize(statusResult);
-    return Results.Content($"{callback}({json});", "application/javascript");
+    await handleJsonp(theContext, statusResult);
 });
 
 app.MapPost("/test.json", static async (HttpContext theContext) =>
@@ -45,12 +61,7 @@ app.MapPost("/test.json", static async (HttpContext theContext) =>
 
     var testOutput = new TestOutput(true, html);
 
-    var callback = theContext.Request.Query["callback"];
-    if (string.IsNullOrEmpty(callback)) {
-        return Results.Json(testOutput);
-    }
-    string json = JsonSerializer.Serialize(testOutput);
-    return Results.Content($"{callback}({json});", "application/javascript");
+    await handleJsonp(theContext, testOutput);
 });
 
 var hostname = Environment.GetEnvironmentVariable("HOSTNAME") ?? "0.0.0.0";
