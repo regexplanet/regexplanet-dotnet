@@ -31,6 +31,15 @@ builder.Services.AddHttpLogging(logging =>
 
 var app = builder.Build();
 
+app.MapFallback(async theContext =>
+{
+    theContext.Response.StatusCode = 404;
+
+    var result = new TestOutput(false, "404 Not Found", "");
+
+    await handleJsonp(theContext, result);
+});
+
 app.UseHttpLogging();
 
 app.UseStaticFiles();
@@ -49,7 +58,10 @@ app.MapGet("/status.json", static async (HttpContext theContext) =>
     await handleJsonp(theContext, statusResult);
 });
 
-app.MapPost("/test.json", static async (HttpContext theContext) =>
+app.MapPost("/test.json", RunTest);
+app.MapGet("/test.json", RunTest);
+
+static async Task RunTest(HttpContext theContext)
 {   
     // read form variables
     var form = await theContext.Request.ReadFormAsync();
@@ -59,10 +71,10 @@ app.MapPost("/test.json", static async (HttpContext theContext) =>
 
     var html = $"{regex} {replacement} {input.Length} {input.FirstOrDefault()}";
 
-    var testOutput = new TestOutput(true, html);
+    var testOutput = new TestOutput(true, "", html);
 
     await handleJsonp(theContext, testOutput);
-});
+}
 
 var hostname = Environment.GetEnvironmentVariable("HOSTNAME") ?? "0.0.0.0";
 var port = Environment.GetEnvironmentVariable("PORT") ?? "4000";
@@ -73,5 +85,5 @@ app.Logger.LogInformation($"App started on {url}", url);
 app.Run(url);
 
 record StatusResult(Boolean success, string tech, string version, string timestamp, string lastmod, string commit);
-record TestOutput(Boolean success, string html);
+record TestOutput(Boolean success, string message, string html);
 
