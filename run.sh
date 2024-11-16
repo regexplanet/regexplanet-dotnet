@@ -14,4 +14,4 @@ if [ -f "${ENV_FILE}" ]; then
 fi
 
 # run the app
-dotnet run .
+dotnet watch .

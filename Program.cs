@@ -1,26 +1,6 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.HttpLogging;
-
-static async Task<bool> handleJsonp(HttpContext theContext, object data)
-{
-    string jsonStr = JsonSerializer.Serialize(data);
-
-    var response = theContext.Response;
-    var callback = theContext.Request.Query["callback"];
-    theContext.Response.Clear();
-    if (string.IsNullOrEmpty(callback))
-    {
-        response.ContentType = "application/json";
-        response.Headers.Append("Access-Control-Allow-Origin", "*");
-        response.Headers.Append("Access-Control-Allow-Methods", "GET");
-        response.Headers.Append("Access-Control-Max-Age", "604800");
-        await response.WriteAsync(jsonStr);
-    } else {
-        response.ContentType = "text/javascript; charset=utf-8";
-        await response.WriteAsync($"{callback}({jsonStr});");
-    }
-    return true;
-}
+using Microsoft.Extensions.Primitives;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpLogging(logging =>
@@ -37,14 +17,14 @@ app.MapFallback(async theContext =>
 
     var result = new TestOutput(false, "404 Not Found", "");
 
-    await handleJsonp(theContext, result);
+    await JsonpHandler.handleJsonp(theContext, result);
 });
 
 app.UseHttpLogging();
 
 app.UseStaticFiles();
 
-app.MapGet("/", () => "Running!");
+app.MapGet("/", () => $".NET {Environment.Version}");
 app.MapGet("/status.json", static async (HttpContext theContext) =>
 {
     var statusResult = new StatusResult(true, 
@@ -55,25 +35,43 @@ app.MapGet("/status.json", static async (HttpContext theContext) =>
         Environment.GetEnvironmentVariable("COMMIT") ?? "(local)"
     );
 
-    await handleJsonp(theContext, statusResult);
+    await JsonpHandler.handleJsonp(theContext, statusResult);
 });
 
-app.MapPost("/test.json", RunTest);
-app.MapGet("/test.json", RunTest);
+app.MapPost("/test.json", PostRunTest);
+app.MapGet("/test.json", GetRunTest);
 
-static async Task RunTest(HttpContext theContext)
-{   
-    // read form variables
+static string[] getStrings(StringValues rawValues) {
+
+    return rawValues.Where(i => i != null).Select(i => i!).ToArray() ?? new string[] { };
+}
+
+static async Task GetRunTest(HttpContext theContext)
+{
+    var regex = theContext.Request.Query["regex"].FirstOrDefault() ?? "";
+    var replacement = theContext.Request.Query["replacement"].FirstOrDefault() ?? "";
+    var options = getStrings(theContext.Request.Query["option"]);
+    var inputs = getStrings(theContext.Request.Query["input"]);
+
+    var testInput = new TestInput(regex, replacement, options, inputs);
+    var testOutput = TestRunner.RunTest(testInput);
+
+    await JsonpHandler.handleJsonp(theContext, testOutput);
+}
+
+
+static async Task PostRunTest(HttpContext theContext)
+{
     var form = await theContext.Request.ReadFormAsync();
-    var regex = form["regex"].FirstOrDefault();
-    var replacement = form["replacement"].FirstOrDefault();
-    var input = form["input"].ToArray() ?? new string[] { };
+    var regex = form["regex"].FirstOrDefault() ?? "";
+    var replacement = form["replacement"].FirstOrDefault() ?? "";
+    var options = getStrings(form["option"]);
+    var inputs = getStrings(form["input"]);
 
-    var html = $"{regex} {replacement} {input.Length} {input.FirstOrDefault()}";
+    var testInput = new TestInput(regex, replacement, options, inputs);
+    var testOutput = TestRunner.RunTest(testInput);
 
-    var testOutput = new TestOutput(true, "", html);
-
-    await handleJsonp(theContext, testOutput);
+    await JsonpHandler.handleJsonp(theContext, testOutput);
 }
 
 var hostname = Environment.GetEnvironmentVariable("HOSTNAME") ?? "0.0.0.0";
@@ -85,5 +83,4 @@ app.Logger.LogInformation($"App started on {url}", url);
 app.Run(url);
 
 record StatusResult(Boolean success, string tech, string version, string timestamp, string lastmod, string commit);
-record TestOutput(Boolean success, string message, string html);
 
